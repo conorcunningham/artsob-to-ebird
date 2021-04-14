@@ -2,14 +2,14 @@
 Are you a Norwegian birder? Are you tired of Artsobservasjon.no? Are you using EBird and are happy as Larry with it? Want to get all of your artsob observations into Ebird? If you answered yes to these questions, then this tool might be for you.
 
 ## What it does
-artsob-to-ebird converts your artsob records to the [EBird record format](https://support.ebird.org/en/support/solutions/articles/48000907878-upload-spreadsheet-data-to-ebird#anchorRecordFormat). This allows you to import your records into EBird with a single click. The tool uses the scientific species name in the artsob record to find what EBird call the Common Name. EBird [provides a list](./data/ebird-species-list.json) of all of the world's birds naming data.
+artsob-to-ebird converts your artsob records to the [EBird record format](https://support.ebird.org/en/support/solutions/articles/48000907878-upload-spreadsheet-data-to-ebird#anchorRecordFormat). This allows you to import your records into EBird with a single click. The tool uses the scientific species name in the artsob record to find what EBird call the Common Name. EBird [provides a list](data/ebird-species-list.json) of all the world's birds naming data.
 
 ## Known Issue(s)
-Some of the scientific names used by Artsob are not the same as the scientic names used by EBird. As an example, the Common Linnet (Tornirisk in Norwegian) has the scientific name *Carduelis cannabina* in the Artsob system. In EBird, it is known as the Eurasian Linnet and has the scientific name *Linaria cannabina*.
+Some scientific names used by Artsob are not the same as the scientic names used by EBird. As an example, the Common Linnet (Tornirisk in Norwegian) has the scientific name *Carduelis cannabina* in the Artsob system. In EBird, it is known as the Eurasian Linnet and has the scientific name *Linaria cannabina*.
 
 This discrepency results in artsob-to-ebird not being able to find the correct *Common Name* as used by EBird. This means that records where an EBird *Common Name* cannot be found, are not converted to an EBird record and hence, will not be imported in EBird.
 
-I currently do not have a solution for this, but am working on it.
+I currently do not have a solution for this, but I am working on it.
 
 ## How it works
 This tool reads either a Microsoft Excel or CSV (Comma Serpated Value) file of your artsob records. This part you will have to do yourself, but you can search for your own records on artsob and export them as an Excel file. You can also search for records where you are not the reporter, but an observer.
@@ -47,6 +47,9 @@ README.md                   artsob-my-obs-complete.xlsx artsob-to-ebird.py      
 If you want to import from CSV, use the `--format csv` option:
 
 `python artsob-to-ebird.py artsob-my-obs-complete.xlsx --format csv`
+
+## Logging
+The program will log to `results.log` in the root directory containing the code.
 
 ## Error Handling
 
