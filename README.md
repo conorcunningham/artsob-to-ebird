@@ -24,7 +24,7 @@ Gather all the records you wish to import into an Excel or CSV file and place th
 ```bash
  python artsob-to-ebird.py my-artobs-excel-file.xlsx
 ```
-where `my-artobs-excel-file.xlsx` is the name of the file you created containing your Artsob records. The tool will then create a file called `ebird_observations.xlsx` in the same directory.
+where `my-artobs-excel-file.xlsx` is the name of the file you created containing your Artsob records. The tool will then create a two files, one Excel file and one CSV file called *ebird_observations* but will have different file extensions.
 
 ### Example from my Mac
 ```bash

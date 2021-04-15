@@ -44,6 +44,9 @@ class EBirdRecord:
             "Effort Distance Miles": None,
             "Genus": None,
             "Species": None,
+            "Latitude": None,
+            "Longitude": None,
+            "State/Province": "NO",
         }
 
         # these are the value which we will get
@@ -52,11 +55,11 @@ class EBirdRecord:
             "count": "Number",
             "comments": "Comments",
             "location": "Location Name",
-            "latitude": "Latitude",
-            "longitude": "Longitude",
+            # "latitude": "Latitude",
+            # "longitude": "Longitude",
             "start_date": "Date",
             "start_time": "Start Time",
-            "state": "State/Province",
+            # "state": "State/Province",
             "observers": "Number of Observers",
             "duration": "Duration",
         }

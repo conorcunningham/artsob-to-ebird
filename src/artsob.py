@@ -1,6 +1,7 @@
 import datetime
 import pandas as pd
 from typing import NamedTuple
+from pyproj import Proj
 
 
 class TimeRecord(NamedTuple):
@@ -12,8 +13,6 @@ class TimeRecord(NamedTuple):
 class Artsob:
     latin: str
     count: int
-    east: str
-    west: str
     start_date: datetime.date
     start_time: datetime.time
     end_date: datetime.date
@@ -26,6 +25,7 @@ class Artsob:
     longitude: str
     state: str
     duration: int = 60
+    wgs_string: str
     id: int
 
     def __init__(self, row, observer: str = "Conor Cunningham"):
@@ -33,8 +33,6 @@ class Artsob:
         self.fields = (
             ("Vitenskapelig navn", "latin"),
             ("Antall", "count"),
-            ("Østkoordinat", "east"),
-            ("Nordkoordinat", "west"),
             ("Startdato", "start_date"),
             ("Stattidspunkt", "start_time"),
             ("Sluttdato", "end_date"),
@@ -45,9 +43,10 @@ class Artsob:
             ("Lokalitetsnavn", "location"),
             ("Kommentar", "comments"),
             ("Fylke", "state"),
-            ("Østkoordinat", "longitude"),
-            ("Nordkoordinat", "latitude"),
+            # ("Østkoordinat", "longitude"),
+            # ("Nordkoordinat", "latitude"),
             ("Id", "id"),
+            ("Originale koordinater", "wgs_string"),
         )
         self.build_object(row)
 
@@ -70,13 +69,20 @@ class Artsob:
 
             setattr(self, english, value)
 
+            if "wgs_string" in english:
+                cleaned_cell = self.parse_csv_cell(row[norsk])
+                self.longitude, self.latitude = self.parse_coordinates(cleaned_cell)
+
     @staticmethod
     def parse_location(value):
-        location = value.split()[0]
-        chars = [",", " "]
-        for char in chars:
-            location.replace(char, "")
-        return location
+        if "," in value:
+            location = value.split(",")
+            return location[0].strip()
+        elif "(" in value:
+            location = value.split("(")
+            return location[0].strip()
+        else:
+            return value.strip()
 
     @staticmethod
     def parse_observers(value):
@@ -89,10 +95,10 @@ class Artsob:
     def parse_csv_cell(value):
         if pd.isna(value):
             return None
-        if value == "":
-            return None
         if isinstance(value, str):
             return value.strip()
+        if value == "":
+            return None
         return value
 
     @staticmethod
@@ -111,6 +117,28 @@ class Artsob:
         if not pd.isna(text):
             time_parts = [int(part) for part in text.split(":")]
             return datetime.time(hour=time_parts[0], minute=time_parts[1])  # .strftime("%H:%M")
+
+    def parse_coordinates(self, text: str):
+        text = self.parse_csv_cell(text)
+        if text is None or text == "" or pd.isna(text):
+            return None, None
+        if text.startswith("32V"):
+            return None, None
+
+        replace = ("N", ",", "Ø")
+        coord_text = text
+        for char in replace:
+            coord_text = coord_text.replace(char, "")
+        parts = coord_text.split()
+        x = int(parts[0])
+        y = int(parts[1])
+
+        # convert wgs to decimal
+        myProj = Proj("+proj=utm +zone=33, +north +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+        longitude, latitude = myProj(x, y, inverse=True)
+        longitude = round(longitude, 2)
+        latitude = round(latitude, 2)
+        return longitude, latitude
 
 
 class ArtsobRecords:
@@ -134,7 +162,11 @@ class ArtsobRecords:
                 print(f"Duplicate in artsob: {record.id}")
                 continue
 
-            record.duration = self.calculate_duration(record)
+            duration = self.calculate_duration(record)
+            if duration != 0:
+                record.duration = duration
+            else:
+                record.duration = 60
 
             start_date = record.start_date.strftime("%m/%d/%y")
             time_record = TimeRecord(record.start_date, record.start_time, record.location)
@@ -163,8 +195,8 @@ class ArtsobRecords:
                 self.assign_start_time(record)
 
             # convert dates to correct string format
-            record.start_date = record.start_date.strftime("%m/%d/%y")
-            record.end_date = record.end_date.strftime("%m/%d/%y")
+            record.start_date = record.start_date.strftime("%m/%d/%Y")
+            record.end_date = record.end_date.strftime("%m/%d/%Y")
             if isinstance(record.start_time, datetime.time):
                 record.start_time = record.start_time.strftime("%H:%M")
 
@@ -172,7 +204,7 @@ class ArtsobRecords:
         try:
             location_time = self.location_lookup.get(record.location, None)
             if location_time is not None and location_time != "":
-                record.start_time = location_time[record.start_date.strftime("%m/%d/%y")]
+                record.start_time = location_time[record.start_date.strftime("%m/%d/%Y")]
             else:
                 record.start_time = "08:00"
         except KeyError:

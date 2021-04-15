@@ -29,7 +29,7 @@ def convert():
     artsob_file = Path() / args.artsob_file
     data_dir = Path() / "data"
     species_file = data_dir / "ebird-species-list.json"
-    ebird_output_file = "ebird_observations.xlsx"
+    ebird_output_file = "ebird_observations"
 
     species = parse_species_file(species_file)
     artsob_data = get_artsob_records(artsob_file, file_format)
@@ -52,7 +52,8 @@ def convert():
 
     # write ebird_excel to file
     pandas_output = pd.DataFrame(ebird_excel)
-    pandas_output.to_excel(ebird_output_file, index=False)
+    pandas_output.to_csv(f"{ebird_output_file}.csv", index=False, header=False)
+    pandas_output.to_excel(f"{ebird_output_file}.xlsx", index=False, header=False)
     print(f"Successfully created {ebird_output_file} from {artsob_file.name}")
 
 
