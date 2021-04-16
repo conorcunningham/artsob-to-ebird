@@ -9,3 +9,5 @@ __pycache__
 .DS_Store
 /data/artsob-my-obs-complete.xlsx
 /data/~$artsob-my-obs-complete.xlsx
+/ebird_observations.csv
+/ebird_observations.xlsx
