@@ -78,5 +78,5 @@ class EBirdRecord:
             logger.error(f"No species found in lookup table for {self.artsob.latin}")
             self.valid = False
         else:
-            self.fields["Common Name"] = common_name["comName"]
+            self.fields["Common Name"] = common_name
             self.valid = True
