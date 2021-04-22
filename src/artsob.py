@@ -32,6 +32,7 @@ class Artsob:
         self.reporter = observer
         self.fields = (
             ("Vitenskapelig navn", "latin"),
+            ("Artsnavn", "norwegian"),
             ("Antall", "count"),
             ("Startdato", "start_date"),
             ("Stattidspunkt", "start_time"),
@@ -136,8 +137,8 @@ class Artsob:
         # convert wgs to decimal
         myProj = Proj("+proj=utm +zone=33, +north +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
         longitude, latitude = myProj(x, y, inverse=True)
-        longitude = round(longitude, 2)
-        latitude = round(latitude, 2)
+        longitude = round(longitude, 4)
+        latitude = round(latitude, 4)
         return longitude, latitude
 
 

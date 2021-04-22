@@ -1,13 +1,9 @@
 .idea/
 .env/
-/data/artsob-my-obs.csv
-/data/ebird_observations.xlsx
-/data/~$ebird_observations.xlsx
-/results.log
 __pycache__
 .pyc
 .DS_Store
-/data/artsob-my-obs-complete.xlsx
+/data/avibase-raw-european-bird-names
+/output/
 /data/~$artsob-my-obs-complete.xlsx
-/ebird_observations.csv
-/ebird_observations.xlsx
+/data/artsob-my-obs-complete.xlsx

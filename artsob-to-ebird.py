@@ -28,8 +28,13 @@ def convert():
     # the files
     artsob_file = Path() / args.artsob_file
     data_dir = Path() / "data"
+    output_dir = Path() / "output"
     species_file = data_dir / "ebird-species-list.json"
-    ebird_output_file = "ebird_observations"
+    ebird_output_file = output_dir / "ebird_observations"
+
+    # with open(species_file, "r") as file:
+    #     species_json = file.read()
+    #     species = json.loads(species_json)
 
     species = parse_species_file(species_file)
     artsob_data = get_artsob_records(artsob_file, file_format)

@@ -1,5 +1,7 @@
 # Artsobservasjon to eBird
-Are you a Norwegian birder? Are you tired of Artsobservasjon.no? Are you using eBird and are happy as Larry with it? Want to get all of your artsob observations into eBird? If you answered yes to these questions, then this tool might be for you.
+Are you a Norwegian birder? Want to get all of your artsob observations into eBird? If you answered yes to these questions, then this tool might be for you.
+
+This tool is very much in development, so you can expect some changes in the future. I will try to only make them improvements, and not breaking feature changes. Have a read of the known issues and error handling sections to become aware of some of the limitations.
 
 ## What it does
 artsob-to-ebird converts your artsob records to the [eBird record format](https://support.ebird.org/en/support/solutions/articles/48000907878-upload-spreadsheet-data-to-ebird#anchorRecordFormat). This allows you to import your records into eBird with a single click. The tool uses the scientific species name in the artsob record to find what eBird call the Common Name. eBird [provides a list](data/ebird-species-list.json) of all the world's birds naming data.

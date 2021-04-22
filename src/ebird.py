@@ -55,17 +55,19 @@ class EBirdRecord:
             "count": "Number",
             "comments": "Comments",
             "location": "Location Name",
-            # "latitude": "Latitude",
-            # "longitude": "Longitude",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
             "start_date": "Date",
             "start_time": "Start Time",
             # "state": "State/Province",
             "observers": "Number of Observers",
             "duration": "Duration",
+            # "norwegian": "Common Name"
         }
 
         self.species = species
         self.artsob = artsob
+        self.valid = True
 
         self.find_bird_name()
         for artsob, ebird in self.headings.items():
@@ -78,5 +80,5 @@ class EBirdRecord:
             logger.error(f"No species found in lookup table for {self.artsob.latin}")
             self.valid = False
         else:
-            self.fields["Common Name"] = common_name
+            self.fields["Common Name"] = common_name["comName"]
             self.valid = True
