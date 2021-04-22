@@ -45,7 +45,7 @@ where `my-artobs-excel-file.xlsx` is the name of the file you created containing
 
 ### Example from my Mac
 ```bash
-(.env) conor at flatline in artsob-to-ebird on master [+!?]
+(.env) conor at flatline in artsob-to-ebird on main [+!?]
 
 $ python artsob-to-ebird.py artsob-my-obs-complete.xlsx 
 
