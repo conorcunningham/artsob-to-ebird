@@ -137,8 +137,8 @@ class Artsob:
         # convert wgs to decimal
         myProj = Proj("+proj=utm +zone=33, +north +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
         longitude, latitude = myProj(x, y, inverse=True)
-        longitude = round(longitude, 4)
-        latitude = round(latitude, 4)
+        longitude = round(longitude, 7)
+        latitude = round(latitude, 7)
         return longitude, latitude
 
 

@@ -13,7 +13,13 @@ Some scientific names used by Artsob are not the same as the scientic names used
 This discrepency results in artsob-to-ebird not being able to find the correct *Common Name* as used by eBird. This means that records where an eBird *Common Name* cannot be found, are not converted to an eBird record and hence, will not be imported in eBird.
 
 ### Different Spelling between eBird web interface and eBird API
+##### Update 22nd April, 2021
 
+This issue looks to be solved by converting Artsob WGS coordinates to decimal, and including the coordinates in the eBird record. When I did this, the suggested bird names were correct, i.e. it suggested the Eurasian Teal and not the American Green-winged Teal.
+
+Where available, I read the WGS coordinates from Artsob and convert them to decimal and include them in the eBird record.
+
+##### Problem Description
 This issue caused me some grief after I had imported my data into eBird. eBird said that it didn't recognise 20 or so of the species I had imported. I find this very strange as it is the eBird API I have used to get the names of the birds that I imported.
 
 As an example, my Artsob data had a record for *Lanius excubitor*, which in English is a Great Grey Shrike. I asked eBird for the *common name* for the species *Lanius excubitor* and eBird returned the name *Great Gray Shrike* (note the "a" in gray).
@@ -40,17 +46,10 @@ where `my-artobs-excel-file.xlsx` is the name of the file you created containing
 ### Example from my Mac
 ```bash
 (.env) conor at flatline in artsob-to-ebird on master [+!?]
-$ ls
-README.md                   artsob-my-obs-complete.xlsx artsob-to-ebird.py          data                        results.log                 src
-(.env) conor at flatline in artsob-to-ebird on master [+!?]
 
 $ python artsob-to-ebird.py artsob-my-obs-complete.xlsx 
 
 Successfully created ebird_observations.xlsx from artsob-my-obs-complete.xlsx
-
-$ ls
-README.md                   artsob-my-obs-complete.xlsx artsob-to-ebird.py          data                        ebird_observations.xlsx     results.log                 src
-
 ```
 
 ### CSV
